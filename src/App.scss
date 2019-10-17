@@ -1,0 +1,867 @@
+@import './_variables.scss';
+
+#app {
+  min-height: 100vh;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.app-bg-wrapper {
+  position: fixed;
+  z-index: -1;
+  height: 100%;
+  left: 0;
+  right: -20px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+}
+
+i[class^='icon-'] {
+  user-select: none;
+}
+
+h4 {
+  margin: 0;
+}
+
+#content {
+  box-sizing: border-box;
+  padding-top: 60px;
+  margin: auto;
+  min-height: 100vh;
+  max-width: 980px;
+  background-color: rgba(0,0,0,0.15);
+  align-content: flex-start;
+}
+
+.text-center {
+  text-align: center;
+}
+
+body {
+  font-family: sans-serif;
+  font-family: var(--interfaceFont, sans-serif);
+  font-size: 14px;
+  margin: 0;
+  color: $fallback--text;
+  color: var(--text, $fallback--text);
+  max-width: 100vw;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: $fallback--link;
+  color: var(--link, $fallback--link);
+}
+
+button {
+  user-select: none;
+  color: $fallback--text;
+  color: var(--btnText, $fallback--text);
+  background-color: $fallback--fg;
+  background-color: var(--btn, $fallback--fg);
+  border: none;
+  border-radius: $fallback--btnRadius;
+  border-radius: var(--btnRadius, $fallback--btnRadius);
+  cursor: pointer;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 1), 0px 1px 0px 0px rgba(255, 255, 255, 0.2) inset, 0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset;
+  box-shadow: var(--buttonShadow);
+  font-size: 14px;
+  font-family: sans-serif;
+  font-family: var(--interfaceFont, sans-serif);
+
+  i[class*=icon-] {
+    color: $fallback--text;
+    color: var(--btnText, $fallback--text);
+  }
+
+  &::-moz-focus-inner {
+    border: none;
+  }
+
+  &:hover {
+    box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.3);
+    box-shadow: var(--buttonHoverShadow);
+  }
+
+  &:active {
+    box-shadow: 0px 0px 4px 0px rgba(255, 255, 255, 0.3), 0px 1px 0px 0px rgba(0, 0, 0, 0.2) inset, 0px -1px 0px 0px rgba(255, 255, 255, 0.2) inset;
+    box-shadow: var(--buttonPressedShadow);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &.pressed {
+    color: $fallback--faint;
+    color: var(--faint, $fallback--faint);
+    background-color: $fallback--bg;
+    background-color: var(--bg, $fallback--bg)
+  }
+
+  &.danger {
+    // TODO: add better color variable
+    color: $fallback--text;
+    color: var(--alertErrorPanelText, $fallback--text);
+    background-color: $fallback--alertError;
+    background-color: var(--alertError, $fallback--alertError);
+  }
+}
+
+label.select {
+  padding: 0;
+
+}
+
+input, textarea, .select {
+  border: none;
+  border-radius: $fallback--inputRadius;
+  border-radius: var(--inputRadius, $fallback--inputRadius);
+  box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.2) inset, 0px -1px 0px 0px rgba(255, 255, 255, 0.2) inset, 0px 0px 2px 0px rgba(0, 0, 0, 1) inset;
+  box-shadow: var(--inputShadow);
+  background-color: $fallback--fg;
+  background-color: var(--input, $fallback--fg);
+  color: $fallback--lightText;
+  color: var(--inputText, $fallback--lightText);
+  font-family: sans-serif;
+  font-family: var(--inputFont, sans-serif);
+  font-size: 14px;
+  margin: 0;
+  padding: 8px .5em;
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  height: 28px;
+  line-height: 16px;
+  hyphens: none;
+
+  &:disabled, &[disabled=disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .icon-down-open {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 5px;
+    height: 100%;
+    color: $fallback--text;
+    color: var(--text, $fallback--text);
+    line-height: 28px;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    color: $fallback--text;
+    color: var(--inputText, --text, $fallback--text);
+    margin: 0;
+    padding: 0 2em 0 .2em;
+    font-family: sans-serif;
+    font-family: var(--inputFont, sans-serif);
+    font-size: 14px;
+    width: 100%;
+    z-index: 1;
+    height: 28px;
+    line-height: 16px;
+  }
+
+  &[type=range] {
+    background: none;
+    border: none;
+    margin: 0;
+    box-shadow: none;
+    flex: 1;
+  }
+
+  &[type=radio] {
+    display: none;
+    &:checked + label::before {
+      box-shadow: 0px 0px 2px black inset, 0px 0px 0px 4px $fallback--fg inset;
+      box-shadow: var(--inputShadow), 0px 0px 0px 4px var(--fg, $fallback--fg) inset;
+      background-color: var(--link, $fallback--link);
+    }
+    &:disabled {
+      &,
+      & + label,
+      & + label::before {
+        opacity: .5;
+      }
+    }
+    + label::before {
+      flex-shrink: 0;
+      display: inline-block;
+      content: '';
+      transition: box-shadow 200ms;
+      width: 1.1em;
+      height: 1.1em;
+      border-radius: 100%; // Radio buttons should always be circle
+      box-shadow: 0px 0px 2px black inset;
+      box-shadow: var(--inputShadow);
+      margin-right: .5em;
+      background-color: $fallback--fg;
+      background-color: var(--input, $fallback--fg);
+      vertical-align: top;
+      text-align: center;
+      line-height: 1.1em;
+      font-size: 1.1em;
+      box-sizing: border-box;
+      color: transparent;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+  }
+
+  &[type=checkbox] {
+    display: none;
+    &:checked + label::before {
+      color: $fallback--text;
+      color: var(--text, $fallback--text);
+    }
+    &:disabled {
+      &,
+      & + label,
+      & + label::before {
+        opacity: .5;
+      }
+    }
+    + label::before {
+      flex-shrink: 0;
+      display: inline-block;
+      content: '✔';
+      transition: color 200ms;
+      width: 1.1em;
+      height: 1.1em;
+      border-radius: $fallback--checkboxRadius;
+      border-radius: var(--checkboxRadius, $fallback--checkboxRadius);
+      box-shadow: 0px 0px 2px black inset;
+      box-shadow: var(--inputShadow);
+      margin-right: .5em;
+      background-color: $fallback--fg;
+      background-color: var(--input, $fallback--fg);
+      vertical-align: top;
+      text-align: center;
+      line-height: 1.1em;
+      font-size: 1.1em;
+      box-sizing: border-box;
+      color: transparent;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+  }
+}
+
+option {
+  color: $fallback--text;
+  color: var(--text, $fallback--text);
+  background-color: $fallback--bg;
+  background-color: var(--bg, $fallback--bg);
+}
+
+.hide-number-spinner {
+  -moz-appearance: textfield;
+  &[type=number]::-webkit-inner-spin-button,
+  &[type=number]::-webkit-outer-spin-button {
+    opacity: 0;
+    display: none;
+  }
+}
+
+i[class*=icon-] {
+  color: $fallback--icon;
+  color: var(--icon, $fallback--icon)
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.btn-group {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+
+  button {
+    position: relative;
+    flex: 1 1 auto;
+
+    &:not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0 10px 0 10px;
+}
+
+.item {
+  flex: 1;
+  line-height: 50px;
+  height: 50px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+
+  .nav-icon {
+    margin-left: 0.4em;
+  }
+
+  &.right {
+    justify-content: flex-end;
+  }
+}
+
+.auto-size {
+  flex: 1
+}
+
+.nav-bar {
+  padding: 0;
+  width: 100%;
+  align-items: center;
+  position: fixed;
+  height: 50px;
+  box-sizing: border-box;
+
+  .logo {
+    display: flex;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    align-items: stretch;
+    justify-content: center;
+    flex: 0 0 auto;
+    z-index: -1;
+    transition: opacity;
+    transition-timing-function: ease-out;
+    transition-duration: 100ms;
+
+    .mask {
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: contain;
+      background-color: $fallback--fg;
+      background-color: var(--topBarText, $fallback--fg);
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    img {
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      flex: 0;
+    }
+  }
+
+  .inner-nav {
+    position: relative;
+    margin: auto;
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    flex-basis: 970px;
+    height: 50px;
+
+    a, a i {
+      color: $fallback--link;
+      color: var(--topBarLink, $fallback--link);
+    }
+  }
+}
+
+main-router {
+  flex: 1;
+}
+
+.status.compact {
+  color: rgba(0, 0, 0, 0.42);
+  font-weight: 300;
+
+  p {
+    margin: 0;
+    font-size: 0.8em
+  }
+}
+
+/* Panel */
+
+.panel {
+  display: flex;
+  position: relative;
+
+  flex-direction: column;
+  margin: 0.5em;
+
+  background-color: $fallback--bg;
+  background-color: var(--bg, $fallback--bg);
+
+  &::after, & {
+    border-radius: $fallback--panelRadius;
+    border-radius: var(--panelRadius, $fallback--panelRadius);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    pointer-events: none;
+
+    box-shadow: 1px 1px 4px rgba(0,0,0,.6);
+    box-shadow: var(--panelShadow);
+  }
+}
+
+.panel-body:empty::before {
+  content: "¯\\_(ツ)_/¯"; // Could use words but it'd require translations
+  display: block;
+  margin: 1em;
+  text-align: center;
+}
+
+.panel-heading {
+  display: flex;
+  flex: none;
+  border-radius: $fallback--panelRadius $fallback--panelRadius 0 0;
+  border-radius: var(--panelRadius, $fallback--panelRadius) var(--panelRadius, $fallback--panelRadius) 0 0;
+  background-size: cover;
+  padding: .6em .6em;
+  text-align: left;
+  line-height: 28px;
+  color: var(--panelText);
+  background-color: $fallback--fg;
+  background-color: var(--panel, $fallback--fg);
+  align-items: baseline;
+  box-shadow: var(--panelHeaderShadow);
+
+  .title {
+    flex: 1 0 auto;
+    font-size: 1.3em;
+  }
+
+  .faint {
+    background-color: transparent;
+    color: $fallback--faint;
+    color: var(--panelFaint, $fallback--faint);
+  }
+
+  .alert {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+  }
+
+  button {
+    flex-shrink: 0;
+  }
+
+  button, .alert {
+    // height: 100%;
+    line-height: 21px;
+    min-height: 0;
+    box-sizing: border-box;
+    margin: 0;
+    margin-left: .25em;
+    min-width: 1px;
+    align-self: stretch;
+  }
+
+  a {
+    color: $fallback--link;
+    color: var(--panelLink, $fallback--link)
+  }
+}
+
+.panel-heading.stub {
+  border-radius: $fallback--panelRadius;
+  border-radius: var(--panelRadius, $fallback--panelRadius);
+}
+
+.panel-footer {
+  border-radius: 0 0 $fallback--panelRadius $fallback--panelRadius;
+  border-radius: 0 0 var(--panelRadius, $fallback--panelRadius) var(--panelRadius, $fallback--panelRadius);
+
+
+  .faint {
+    color: $fallback--faint;
+    color: var(--panelFaint, $fallback--faint);
+  }
+
+  a {
+    color: $fallback--link;
+    color: var(--panelLink, $fallback--link)
+  }
+}
+
+.panel-body > p {
+  line-height: 18px;
+  padding: 1em;
+  margin: 0;
+}
+
+.container > * {
+  min-width: 0px;
+}
+
+.fa {
+  color: grey;
+}
+
+nav {
+  z-index: 1000;
+  color: var(--topBarText);
+  background-color: $fallback--fg;
+  background-color: var(--topBar, $fallback--fg);
+  color: $fallback--faint;
+  color: var(--faint, $fallback--faint);
+  box-shadow: 0px 0px 4px rgba(0,0,0,.6);
+  box-shadow: var(--topBarShadow);
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
+
+.main {
+  flex-basis: 50%;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.sidebar-bounds {
+  flex: 0;
+  flex-basis: 35%;
+}
+
+.sidebar-flexer {
+  flex: 1;
+  flex-basis: 345px;
+  width: 365px;
+}
+
+.mobile-shown {
+  display: none;
+}
+
+@media all and (min-width: 800px) {
+  body {
+    overflow-y: scroll;
+  }
+
+  .sidebar-bounds {
+    overflow: hidden;
+    max-height: 100vh;
+    width: 345px;
+    position: fixed;
+    margin-top: -10px;
+
+    .sidebar-scroller {
+      height: 96vh;
+      width: 365px;
+      padding-top: 10px;
+      padding-right: 50px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
+
+    .sidebar {
+      width: 345px;
+    }
+  }
+  .sidebar-flexer {
+    max-height: 96vh;
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+}
+.badge {
+  display: inline-block;
+  border-radius: 99px;
+  min-width: 22px;
+  max-width: 22px;
+  min-height: 22px;
+  max-height: 22px;
+  font-size: 15px;
+  line-height: 22px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  padding: 0;
+
+  &.badge-notification {
+    background-color: $fallback--cRed;
+    background-color: var(--badgeNotification, $fallback--cRed);
+    color: white;
+    color: var(--badgeNotificationText, white);
+  }
+}
+
+.alert {
+  margin: 0.35em;
+  padding: 0.25em;
+  border-radius: $fallback--tooltipRadius;
+  border-radius: var(--tooltipRadius, $fallback--tooltipRadius);
+  min-height: 28px;
+  line-height: 28px;
+
+  &.error {
+    background-color: $fallback--alertError;
+    background-color: var(--alertError, $fallback--alertError);
+    color: $fallback--text;
+    color: var(--alertErrorText, $fallback--text);
+
+    .panel-heading & {
+      color: $fallback--text;
+      color: var(--alertErrorPanelText, $fallback--text);
+    }
+  }
+}
+
+.faint {
+  color: $fallback--faint;
+  color: var(--faint, $fallback--faint);
+}
+
+.faint-link {
+  color: $fallback--faint;
+  color: var(--faint, $fallback--faint);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@media all and (min-width: 800px) {
+  .logo {
+    opacity: 1 !important;
+  }
+}
+
+.item.right {
+  text-align: right;
+}
+
+.visibility-notice {
+  padding: .5em;
+  border: 1px solid $fallback--faint;
+  border: 1px solid var(--faint, $fallback--faint);
+  border-radius: $fallback--inputRadius;
+  border-radius: var(--inputRadius, $fallback--inputRadius);
+}
+
+.notice-dismissible {
+  padding-right: 4rem;
+  position: relative;
+
+  .dismiss {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: .5em;
+    color: inherit;
+  }
+}
+
+@keyframes modal-background-fadein {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.modal-view {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  animation-duration: 0.2s;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation-name: modal-background-fadein;
+}
+
+.button-icon {
+  font-size: 1.2em;
+}
+
+@keyframes shakeError {
+  0% {
+    transform: translateX(0);
+  }
+  15% {
+    transform: translateX(0.375rem);
+  }
+  30% {
+    transform: translateX(-0.375rem);
+  }
+  45% {
+    transform: translateX(0.375rem);
+  }
+  60% {
+    transform: translateX(-0.375rem);
+  }
+  75% {
+    transform: translateX(0.375rem);
+  }
+  90% {
+    transform: translateX(-0.375rem);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@media all and (max-width: 800px) {
+  .mobile-hidden {
+    display: none;
+  }
+
+  .panel-switcher {
+    display: flex;
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  .panel {
+    margin: 0.5em 0 0.5em 0;
+  }
+
+  .menu-button {
+    display: block;
+    margin-right: 0.8em;
+  }
+}
+
+.setting-item {
+  border-bottom: 2px solid var(--fg, $fallback--fg);
+  margin: 1em 1em 1.4em;
+  padding-bottom: 1.4em;
+
+  > div {
+    margin-bottom: .5em;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 1em;
+  }
+
+  select {
+    min-width: 10em;
+  }
+
+
+  textarea {
+    width: 100%;
+    max-width: 100%;
+    height: 100px;
+  }
+
+  .unavailable,
+  .unavailable i {
+    color: var(--cRed, $fallback--cRed);
+    color: $fallback--cRed;
+  }
+
+  .btn {
+    min-height: 28px;
+    min-width: 10em;
+    padding: 0 2em;
+  }
+
+  .number-input {
+    max-width: 6em;
+  }
+}
+.select-multiple {
+  display: flex;
+  .option-list {
+    margin: 0;
+    padding-left: .5em;
+  }
+}
+.setting-list,
+.option-list{
+  list-style-type: none;
+  padding-left: 2em;
+  li {
+    margin-bottom: 0.5em;
+  }
+  .suboptions {
+    margin-top: 0.3em
+  }
+}
+
+.login-hint {
+  text-align: center;
+
+  @media all and (min-width: 801px) {
+    display: none;
+  }
+
+  a {
+    display: inline-block;
+    padding: 1em 0px;
+    width: 100%;
+  }
+}
+
+.btn.btn-default {
+  min-height: 28px;
+}

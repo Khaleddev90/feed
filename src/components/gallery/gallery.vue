@@ -1,0 +1,80 @@
+<template>
+  <div
+    ref="galleryContainer"
+    style="width: 100%;"
+  >
+    <div
+      v-for="(row, index) in rows"
+      :key="index"
+      class="gallery-row"
+      :style="rowHeight(row.length)"
+      :class="{ 'contain-fit': useContainFit, 'cover-fit': !useContainFit }"
+    >
+      <attachment
+        v-for="attachment in row"
+        :key="attachment.id"
+        :set-media="setMedia"
+        :nsfw="nsfw"
+        :attachment="attachment"
+        :allow-play="false"
+      />
+    </div>
+  </div>
+</template>
+
+<script src='./gallery.js'></script>
+
+<style lang="scss">
+@import '../../_variables.scss';
+
+.gallery-row {
+  height: 200px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: stretch;
+  flex-grow: 1;
+  margin-top: 0.5em;
+
+  // FIXME: specificity problem with this and .attachments.attachment
+  // we shouldn't have the need for .image here
+  .attachment.image {
+    margin: 0 0.5em 0 0;
+    flex-grow: 1;
+    height: 100%;
+    box-sizing: border-box;
+    // to make failed images a bit more noticeable on chromium
+    min-width: 2em;
+    &:last-child {
+      margin: 0;
+    }
+  }
+
+  .image-attachment {
+    width: 100%;
+    height: 100%;
+  }
+
+  .video-container {
+    height: 100%;
+  }
+
+  &.contain-fit {
+    img,
+    video,
+    canvas {
+      object-fit: contain;
+    }
+  }
+
+  &.cover-fit {
+    img,
+    video,
+    canvas {
+      object-fit: cover;
+    }
+  }
+}
+
+</style>
