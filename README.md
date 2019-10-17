@@ -1,9 +1,8 @@
 # feed frontend
 
 ###screenshot
-https://github.com/Khaleddev90/feed/blob/master/screenshot/feed.png
-
-https://github.com/Khaleddev90/feed/blob/master/screenshot/setting.png
+![feed](screenshot/feed.png)
+![feed](screenshot/setting.png)
 ## Build Setup
 
 ``` bash
